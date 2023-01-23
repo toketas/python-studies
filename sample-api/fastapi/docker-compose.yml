@@ -1,0 +1,51 @@
+version: "3.9"
+services:
+  server:
+    build: .
+    container_name: python-server
+    command: uvicorn src.main:app --host 0.0.0.0 --port 80 --reload
+    env_file: .env
+    volumes:
+      - ".:/app"
+    ports:
+      - "80:80"
+    networks:
+      - postgres
+
+  db:
+    image: postgres:15-alpine
+    container_name: postgres-container
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_DB: ${POSTGRES_DB:-db}
+      PG_DATA: /data/postgres
+    ports:
+      - "15432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+      #pgadmin:
+      #  container_name: pgadmin_container
+      #  image: dpage/pgadmin4
+      #  environment:
+      #    PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      #    PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      #    PGADMIN_CONFIG_SERVER_MODE: 'False'
+      #  volumes:
+      #     - pgadmin:/var/lib/pgadmin
+
+      #  ports:
+      #    - "${PGADMIN_PORT:-5050}:80"
+      #  networks:
+      #    - postgres
+      #  restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
