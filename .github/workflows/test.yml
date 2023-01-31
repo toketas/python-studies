@@ -1,0 +1,26 @@
+name: Test shared actions
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump-type:
+        required: true
+        options:
+          - major
+          - minor
+          - patch
+        default: minor
+
+jobs:
+  test:
+    name: Calling another repo action
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Create release
+        uses: toketas/gh-actions/create-release/action.yml@main
+        with:
+          bump-type: ${{ inputs.bump-type }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
