@@ -24,4 +24,4 @@ jobs:
         uses: toketas/gh-actions/create-release@master
         with:
           bump-type: ${{ inputs.bump-type }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PERSONAL_TOKEN }}
