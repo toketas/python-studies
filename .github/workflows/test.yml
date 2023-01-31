@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create release
-        uses: toketas/gh-actions/create-release/action.yml@master
+        uses: toketas/gh-actions/create-release@master
         with:
           bump-type: ${{ inputs.bump-type }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
