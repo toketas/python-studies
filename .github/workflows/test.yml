@@ -5,6 +5,7 @@ on:
     inputs:
       bump-type:
         required: true
+        type: choice
         options:
           - major
           - minor
