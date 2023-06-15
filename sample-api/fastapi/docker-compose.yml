@@ -11,6 +11,8 @@ services:
       - "80:80"
     networks:
       - postgres
+    depends_on:
+      - db
 
   db:
     image: postgres:15-alpine
