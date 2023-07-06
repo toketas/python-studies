@@ -1,0 +1,18 @@
+
+
+django
+
+# http requests
+djangorestframework
+
+# logging format
+json_log_formatter
+
+# config settings
+prettyconf
+
+# postgres driver
+psycopg2
+
+gunicorn
+

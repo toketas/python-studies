@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  web:
+    build: .
+    env_file: .env
+    image: api
+    container_name: api
+      #command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    restart: "on-failure"
+    depends_on:
+      - db
+
+  db:
+    container_name: db
+    image: postgres:14-alpine3.18
+    volumes:
+      #- ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - PGPORT=${DB_PORT}
+      - POSTGRES_USER=${POSTGRES_USER}
+    restart: "on-failure"
+
+volumes:
+  postgres_data:
